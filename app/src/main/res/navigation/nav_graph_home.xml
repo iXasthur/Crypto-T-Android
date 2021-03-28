@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_home"
+    app:startDestination="@id/cryptosFragment">
+
+    <fragment
+        android:id="@+id/cryptosFragment"
+        android:name="com.xcnk.cryptot.screens.home.cryptos.CryptosFragment"
+        android:label="fragment_cryptos"
+        tools:layout="@layout/fragment_cryptos" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.xcnk.cryptot.screens.home.map.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.xcnk.cryptot.screens.home.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+</navigation>
