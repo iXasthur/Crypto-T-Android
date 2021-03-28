@@ -30,7 +30,7 @@ object Session {
 
     private fun deleteLocalAsset(asset: CryptoAsset) {
         val index = getLocalAssets()?.indexOf(asset)
-        if (index != null) {
+        if (index != null && index != -1) {
             dashboard?.assets?.removeAt(index)
             if (selectedAsset?.id == asset.id) {
                 selectedAsset = null
@@ -52,7 +52,7 @@ object Session {
 
     private fun updateLocalAsset(asset: CryptoAsset) {
         val index = getLocalAssets()?.indexOf(asset)
-        if (index != null) {
+        if (index != null && index != -1) {
             dashboard?.assets?.set(index, asset)
             if (selectedAsset?.id == asset.id) {
                 selectedAsset = asset
