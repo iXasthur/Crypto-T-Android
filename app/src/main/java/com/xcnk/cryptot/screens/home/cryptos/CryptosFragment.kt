@@ -58,7 +58,8 @@ class CryptosFragment : Fragment() {
     }
 
     private fun syncItems() {
-        println(Session.getLocalAssets()?.count())
+        val adapter = CryptosAdapter(requireContext(), Session.getLocalAssets() ?: ArrayList())
+        grid.adapter = adapter
     }
 
 }
