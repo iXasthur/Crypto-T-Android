@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.squareup.picasso.Picasso
 import com.xcnk.cryptot.R
 import com.xcnk.cryptot.models.crypto.CryptoAsset
+import de.hdodenhof.circleimageview.CircleImageView
 
 class CryptosAdapter(
     private val context: Context,
@@ -45,9 +47,17 @@ class CryptosAdapter(
     }
 
     private fun updateCellView(view: View, p: CryptoAsset) {
-        val icon: ImageView = view.findViewById(R.id.element_crypro_cell_icon)
+        val icon: CircleImageView = view.findViewById(R.id.element_crypro_cell_icon)
         val name: TextView = view.findViewById(R.id.element_crypro_cell_text_name)
         val code: TextView = view.findViewById(R.id.element_crypro_cell_text_code)
+
+        if (p.iconFileData != null) {
+            Picasso.get()
+                .load(p.iconFileData!!.downloadURL)
+                .placeholder(R.drawable.ic_cryptos)
+                .error(R.drawable.ic_cryptos)
+                .into(icon);
+        }
 
         name.text = p.name
         code.text = p.code
