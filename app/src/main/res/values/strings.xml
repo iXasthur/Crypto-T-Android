@@ -32,4 +32,5 @@
     <string name="system">System</string>
     <string name="english">English</string>
     <string name="russian">Русский</string>
+    <string name="add_crypto">Add crypto</string>
 </resources>
