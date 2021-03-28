@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.navigation.findNavController
 import com.xcnk.cryptot.R
 
 
@@ -35,11 +36,11 @@ class AuthFragment : Fragment() {
 
     private fun setupButtonListeners() {
         signInButton.setOnClickListener {
-
+            this.view?.findNavController()?.navigate(R.id.action_authFragment_to_homeActivity)
         }
 
         signUpButton.setOnClickListener {
-
+            this.view?.findNavController()?.navigate(R.id.action_authFragment_to_homeActivity)
         }
     }
 
