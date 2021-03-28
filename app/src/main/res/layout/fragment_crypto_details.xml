@@ -6,15 +6,132 @@
     android:layout_height="match_parent"
     tools:context=".screens.cryptoDetails.CryptoDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="details"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/fragment_crypto_details_icon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_cryptos"
+            app:civ_border_color="@android:color/darker_gray"
+            app:civ_border_width="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/name" />
+
+        <TextView
+            android:id="@+id/fragment_crypto_details_text_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CRYPTO NAME" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/code" />
+
+        <TextView
+            android:id="@+id/fragment_crypto_details_text_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CRYPTO CODE" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/description" />
+
+        <TextView
+            android:id="@+id/fragment_crypto_details_text_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CRYPTO DESCRIPTION" />
+
+        <LinearLayout
+            android:id="@+id/fragment_crypto_details_video_stack"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/video" />
+
+            <VideoView
+                android:id="@+id/fragment_crypto_details_video"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:foregroundGravity="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fragment_crypto_details_event_stack"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/event" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/latitude" />
+
+            <TextView
+                android:id="@+id/fragment_crypto_details_text_event_latitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/longitude" />
+
+            <TextView
+                android:id="@+id/fragment_crypto_details_text_event_longitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/note" />
+
+            <TextView
+                android:id="@+id/fragment_crypto_details_text_event_note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NOTE" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
