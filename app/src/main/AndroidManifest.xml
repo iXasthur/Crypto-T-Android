@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CryptoT">
         <activity
-            android:name=".AuthActivity"
+            android:name=".screens.auth.AuthActivity"
             android:screenOrientation="portrait" >
 
             <intent-filter>

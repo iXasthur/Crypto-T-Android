@@ -1,10 +1,11 @@
-package com.xcnk.cryptot
+package com.xcnk.cryptot.screens.auth
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.xcnk.cryptot.R
 
 
 class AuthFragment : Fragment() {
