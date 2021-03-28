@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CryptoT">
         <activity
+            android:name=".screens.creator.CreatorActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".screens.home.HomeActivity"
             android:screenOrientation="portrait" />
         <activity

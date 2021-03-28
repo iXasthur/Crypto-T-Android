@@ -36,4 +36,7 @@
 
     <string name="invalid_email">Invalid email</string>
     <string name="password_length_error">Password must be at least 6 characters</string>
+
+    <string name="new_crypto">New Crypto</string>
+    <string name="edit_crypto">Edit Crypto</string>
 </resources>

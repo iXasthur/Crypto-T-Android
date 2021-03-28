@@ -9,7 +9,11 @@
         android:id="@+id/cryptosFragment"
         android:name="com.xcnk.cryptot.screens.home.cryptos.CryptosFragment"
         android:label="@string/cryptos"
-        tools:layout="@layout/fragment_cryptos" />
+        tools:layout="@layout/fragment_cryptos" >
+        <action
+            android:id="@+id/action_cryptosFragment_to_creatorActivity"
+            app:destination="@id/creatorActivity" />
+    </fragment>
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.xcnk.cryptot.screens.home.map.MapFragment"
@@ -20,4 +24,9 @@
         android:name="com.xcnk.cryptot.screens.home.settings.SettingsFragment"
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
+    <activity
+        android:id="@+id/creatorActivity"
+        android:name="com.xcnk.cryptot.screens.creator.CreatorActivity"
+        android:label="activity_creator"
+        tools:layout="@layout/activity_creator" />
 </navigation>

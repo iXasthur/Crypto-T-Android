@@ -5,6 +5,7 @@ import android.view.*
 import android.widget.GridView
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.xcnk.cryptot.R
 import com.xcnk.cryptot.api.Session
 
@@ -53,7 +54,9 @@ class CryptosFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        println(item.itemId)
+        if (item.itemId == R.id.action_add_crypto) {
+            findNavController().navigate(R.id.action_cryptosFragment_to_creatorActivity)
+        }
         return super.onOptionsItemSelected(item)
     }
 
@@ -61,7 +64,7 @@ class CryptosFragment : Fragment() {
         val adapter = CryptosAdapter(requireContext(), Session.getLocalAssets() ?: ArrayList())
         grid.adapter = adapter
         grid.setOnItemClickListener { parent, view, position, id ->
-            println(id)
+            println(position)
         }
     }
 
