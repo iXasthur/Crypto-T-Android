@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_crypto_details"
+    app:startDestination="@id/cryptoDetailsFragment">
+
+    <fragment
+        android:id="@+id/cryptoDetailsFragment"
+        android:name="com.xcnk.cryptot.screens.cryptoDetails.CryptoDetailsFragment"
+        android:label="fragment_crypto_details"
+        tools:layout="@layout/fragment_crypto_details" >
+        <action
+            android:id="@+id/action_cryptoDetailsFragment_to_creatorActivity2"
+            app:destination="@id/creatorActivity2" />
+    </fragment>
+    <activity
+        android:id="@+id/creatorActivity2"
+        android:name="com.xcnk.cryptot.screens.creator.CreatorActivity"
+        android:label="activity_creator"
+        tools:layout="@layout/activity_creator" />
+</navigation>

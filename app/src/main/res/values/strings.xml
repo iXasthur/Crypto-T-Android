@@ -39,4 +39,6 @@
 
     <string name="new_crypto">New Crypto</string>
     <string name="edit_crypto">Edit Crypto</string>
+
+    <string name="details">Details</string>
 </resources>

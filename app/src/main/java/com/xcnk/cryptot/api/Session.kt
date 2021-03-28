@@ -16,6 +16,7 @@ object Session {
 
     private val cryptoAssetManager = CryptoAssetFirebaseManager()
 
+    var selectedAsset: CryptoAsset? = null
 
     fun getLocalAssets(): ArrayList<CryptoAsset>? {
         return dashboard?.assets
@@ -31,6 +32,9 @@ object Session {
         val index = getLocalAssets()?.indexOf(asset)
         if (index != null) {
             dashboard?.assets?.removeAt(index)
+            if (selectedAsset?.id == asset.id) {
+                selectedAsset = null
+            }
         }
     }
 
@@ -50,6 +54,9 @@ object Session {
         val index = getLocalAssets()?.indexOf(asset)
         if (index != null) {
             dashboard?.assets?.set(index, asset)
+            if (selectedAsset?.id == asset.id) {
+                selectedAsset = asset
+            }
         } else {
             dashboard?.assets?.add(asset)
         }
@@ -79,11 +86,16 @@ object Session {
             if (error != null) {
                 println(error)
                 this.dashboard?.assets = ArrayList()
+                this.selectedAsset = null
             } else if (assets != null) {
                 this.dashboard?.assets = assets
+                if (selectedAsset != null) {
+                    this.selectedAsset = getLocalAsset(selectedAsset!!.id)
+                }
             } else {
                 println("Didn't receive assets and error")
                 this.dashboard?.assets = ArrayList()
+                this.selectedAsset = null
             }
             onCompleted()
         }
@@ -112,6 +124,7 @@ object Session {
             println(error)
         }
 
+        selectedAsset = null
         authData = null
         dashboard = null
     }

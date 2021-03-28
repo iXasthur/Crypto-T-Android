@@ -5,9 +5,10 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.xcnk.cryptot.R
+import com.xcnk.cryptot.screens.MyActivity
 
 
-class CreatorActivity : AppCompatActivity() {
+class CreatorActivity : MyActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_creator)

@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CryptoT">
+        <activity android:name=".screens.cryptoDetails.CryptoDetailsActivity"></activity>
         <activity
             android:name=".screens.creator.CreatorActivity"
             android:screenOrientation="portrait" />

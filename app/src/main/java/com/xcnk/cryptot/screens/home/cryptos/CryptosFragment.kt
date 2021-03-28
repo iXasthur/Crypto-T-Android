@@ -16,6 +16,7 @@ class CryptosFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        Session.selectedAsset = null
         syncItems()
     }
 
@@ -64,7 +65,8 @@ class CryptosFragment : Fragment() {
         val adapter = CryptosAdapter(requireContext(), Session.getLocalAssets() ?: ArrayList())
         grid.adapter = adapter
         grid.setOnItemClickListener { parent, view, position, id ->
-            println(position)
+            Session.selectedAsset = Session.getLocalAssets()?.get(position)
+            findNavController().navigate(R.id.action_cryptosFragment_to_cryptoDetailsActivity)
         }
     }
 
