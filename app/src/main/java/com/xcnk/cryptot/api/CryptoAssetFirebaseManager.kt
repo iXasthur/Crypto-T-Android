@@ -214,9 +214,9 @@ class CryptoAssetFirebaseManager {
                 updatedAsset.videoFileData = null
                 deleteFile(videoFileData) { error ->
                     if (error != null) {
-                        print(error)
+                        println(error)
                     } else {
-                        print("Deleted icon with path $videoFileData.path")
+                        println("Deleted icon with path $videoFileData.path")
                     }
                 }
             }
