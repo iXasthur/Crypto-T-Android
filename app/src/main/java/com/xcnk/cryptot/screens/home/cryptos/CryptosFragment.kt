@@ -60,6 +60,9 @@ class CryptosFragment : Fragment() {
     private fun syncItems() {
         val adapter = CryptosAdapter(requireContext(), Session.getLocalAssets() ?: ArrayList())
         grid.adapter = adapter
+        grid.setOnItemClickListener { parent, view, position, id ->
+            println(id)
+        }
     }
 
 }
