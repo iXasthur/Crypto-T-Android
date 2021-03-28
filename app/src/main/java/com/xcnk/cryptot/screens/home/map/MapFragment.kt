@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import com.xcnk.cryptot.R
 
 
@@ -29,7 +30,9 @@ class MapFragment : Fragment() {
     }
 
     private fun setupButtonListeners() {
-
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            requireActivity().finishAffinity()
+        }
     }
 
 }

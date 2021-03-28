@@ -7,7 +7,9 @@
     tools:context=".screens.auth.AuthFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -28,7 +30,9 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/email"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:focusable="false"
+            android:focusableInTouchMode="true" />
 
         <EditText
             android:id="@+id/fragment_auth_tf_password"
@@ -36,7 +40,9 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:focusable="false"
+            android:focusableInTouchMode="true" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -66,5 +72,15 @@
             android:textAlignment="center" />
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/fragment_auth_progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

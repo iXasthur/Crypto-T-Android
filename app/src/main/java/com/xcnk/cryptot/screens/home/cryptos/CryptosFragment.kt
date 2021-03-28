@@ -2,6 +2,7 @@ package com.xcnk.cryptot.screens.home.cryptos
 
 import android.os.Bundle
 import android.view.*
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import com.xcnk.cryptot.R
 
@@ -32,7 +33,9 @@ class CryptosFragment : Fragment() {
     }
 
     private fun setupButtonListeners() {
-
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            requireActivity().finishAffinity()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

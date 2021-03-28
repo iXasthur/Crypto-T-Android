@@ -33,4 +33,7 @@
     <string name="english">English</string>
     <string name="russian">Русский</string>
     <string name="add_crypto">Add crypto</string>
+
+    <string name="invalid_email">Invalid email</string>
+    <string name="password_length_error">Password must be at least 6 characters</string>
 </resources>
