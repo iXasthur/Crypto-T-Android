@@ -2,9 +2,8 @@ package com.xcnk.cryptot.screens.creator
 
 import android.os.Bundle
 import android.view.*
+import android.widget.*
 import androidx.fragment.app.Fragment
-import android.widget.EditText
-import android.widget.ProgressBar
 import com.xcnk.cryptot.R
 import com.xcnk.cryptot.api.Session
 import com.xcnk.cryptot.models.crypto.CryptoAsset
@@ -18,6 +17,14 @@ class CreatorFragment : Fragment() {
     private lateinit var nameEditText: EditText
     private lateinit var codeEditText: EditText
     private lateinit var descriptionEditText: EditText
+
+    private lateinit var iconImageView: ImageView
+    private lateinit var selectIconButton: Button
+    private lateinit var deleteIconButton: Button
+
+    private lateinit var videoView: VideoView
+    private lateinit var selectVideoButton: Button
+    private lateinit var deleteVideoButton: Button
 
     private lateinit var progressBar: ProgressBar
 
@@ -40,6 +47,15 @@ class CreatorFragment : Fragment() {
         nameEditText = view.findViewById(R.id.fragment_creator_name)
         codeEditText = view.findViewById(R.id.fragment_creator_code)
         descriptionEditText = view.findViewById(R.id.fragment_creator_description)
+
+        iconImageView = view.findViewById(R.id.fragment_creator_icon)
+        selectIconButton = view.findViewById(R.id.fragment_creator_button_select_icon)
+        deleteIconButton = view.findViewById(R.id.fragment_creator_button_delete_icon)
+
+        videoView = view.findViewById(R.id.fragment_creator_video)
+        selectVideoButton = view.findViewById(R.id.fragment_creator_button_select_video)
+        deleteVideoButton = view.findViewById(R.id.fragment_creator_button_delete_video)
+
         progressBar = view.findViewById(R.id.fragment_creator_progress_bar)
     }
 
@@ -50,7 +66,7 @@ class CreatorFragment : Fragment() {
     }
 
     private fun setupButtonListeners() {
-
+        
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
