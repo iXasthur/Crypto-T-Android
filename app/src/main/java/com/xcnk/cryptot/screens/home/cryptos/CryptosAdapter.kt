@@ -56,7 +56,7 @@ class CryptosAdapter(
                 .load(p.iconFileData!!.downloadURL)
                 .placeholder(R.drawable.ic_cryptos)
                 .error(R.drawable.ic_cryptos)
-                .into(icon);
+                .into(icon)
         }
 
         name.text = p.name

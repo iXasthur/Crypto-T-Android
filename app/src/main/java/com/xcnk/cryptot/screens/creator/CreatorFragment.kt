@@ -1,18 +1,27 @@
 package com.xcnk.cryptot.screens.creator
 
+import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.squareup.picasso.Picasso
 import com.xcnk.cryptot.R
 import com.xcnk.cryptot.api.Session
 import com.xcnk.cryptot.models.crypto.CryptoAsset
+import com.xcnk.cryptot.models.crypto.CryptoEvent
 import com.xcnk.cryptot.utils.startAnimation
 import com.xcnk.cryptot.utils.stopAnimation
 import java.util.*
 
 
 class CreatorFragment : Fragment() {
+
+    private var assetToEdit: CryptoAsset? = null
 
     private lateinit var nameEditText: EditText
     private lateinit var codeEditText: EditText
@@ -21,10 +30,12 @@ class CreatorFragment : Fragment() {
     private lateinit var iconImageView: ImageView
     private lateinit var selectIconButton: Button
     private lateinit var deleteIconButton: Button
+    private var iconUri: Uri? = null
 
     private lateinit var videoView: VideoView
     private lateinit var selectVideoButton: Button
     private lateinit var deleteVideoButton: Button
+    private var videoUri: Uri? = null
 
     private lateinit var progressBar: ProgressBar
 
@@ -62,11 +73,60 @@ class CreatorFragment : Fragment() {
     private fun setupViewObjects() {
         setupButtonListeners()
 
+        assetToEdit = Session.selectedAsset
+        if (assetToEdit != null) {
+            nameEditText.setText(assetToEdit!!.name)
+            codeEditText.setText(assetToEdit!!.code)
+            descriptionEditText.setText(assetToEdit!!.description)
+
+            val vURL = assetToEdit!!.videoFileData?.downloadURL
+            if (vURL != null) {
+                videoUri = Uri.parse(vURL)
+            }
+
+            val iURL = assetToEdit!!.iconFileData?.downloadURL
+            if (iURL != null) {
+                iconUri = Uri.parse(iURL)
+            }
+        }
+
+        syncIcon()
+        syncVideo()
         progressBar.visibility = View.INVISIBLE
     }
 
     private fun setupButtonListeners() {
-        
+        selectIconButton.setOnClickListener {
+            val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            i.putExtra("crop", "true")
+            i.putExtra("aspectX", 100)
+            i.putExtra("aspectY", 100)
+            i.putExtra("outputX", 200)
+            i.putExtra("outputY", 200)
+
+            try {
+                i.putExtra("return-data", true)
+                startActivityForResult(Intent.createChooser(i, "Select Picture"), 0)
+            } catch (ex: ActivityNotFoundException) {
+                ex.printStackTrace()
+            }
+        }
+
+        deleteIconButton.setOnClickListener {
+            iconUri = null
+            syncIcon()
+        }
+
+        selectVideoButton.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
+            intent.type = "video/*"
+            startActivityForResult(Intent.createChooser(intent, "Select Video"), 1)
+        }
+
+        deleteVideoButton.setOnClickListener {
+            videoUri = null
+            syncVideo()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -82,18 +142,26 @@ class CreatorFragment : Fragment() {
             }
             R.id.menu_creator_confirm -> {
                 if (validateInput()) {
+//                    val event: CryptoEvent? = null
+//                    if let eventLatitude = eventLatitude,
+//                    let eventLongitude = eventLongitude {
+//                        event = CryptoEvent(note: eventNote, latitude: eventLatitude, longitude: eventLongitude)
+//                    } else {
+//                        event = nil
+//                    }
+
                     val asset = CryptoAsset(
-                        UUID.randomUUID().toString(),
+                        assetToEdit?.id ?: UUID.randomUUID().toString(),
                         nameEditText.text.toString(),
                         codeEditText.text.toString(),
                         descriptionEditText.text.toString(),
-                        null,
-                        null,
+                        assetToEdit?.iconFileData,
+                        assetToEdit?.videoFileData,
                         null
                     )
 
                     startAnimation(progressBar)
-                    Session.updateRemoteAsset(asset, null, null) { error ->
+                    Session.updateRemoteAsset(asset, iconUri, videoUri) { error ->
                         stopAnimation(progressBar)
                         if (error == null) {
                             requireActivity().onBackPressed()
@@ -124,5 +192,53 @@ class CreatorFragment : Fragment() {
             ret = false
         }
         return ret
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
+            try {
+                if (data != null) {
+                    iconUri = data.data
+                    syncIcon()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            try {
+                if (data != null) {
+                    videoUri = data.data
+                    syncVideo()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun syncIcon() {
+        if (iconUri != null) {
+            Picasso.get()
+                    .load(iconUri)
+                    .placeholder(R.drawable.ic_cryptos)
+                    .error(R.drawable.ic_cryptos)
+                    .into(iconImageView)
+            iconImageView.visibility = View.VISIBLE
+        } else {
+            iconImageView.visibility = View.GONE
+        }
+    }
+
+    private fun syncVideo() {
+        if (videoUri != null) {
+            videoView.setVideoURI(videoUri)
+            videoView.setMediaController(MediaController(requireContext()))
+            videoView.seekTo(100)
+            videoView.visibility = View.VISIBLE
+        } else {
+            videoView.visibility = View.GONE
+        }
     }
 }

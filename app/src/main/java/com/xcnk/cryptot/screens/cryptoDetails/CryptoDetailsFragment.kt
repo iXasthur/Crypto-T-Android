@@ -58,7 +58,7 @@ class CryptoDetailsFragment : Fragment() {
     }
 
     private fun setupViewObjects() {
-        videoView.setMediaController(MediaController(requireContext()));
+        videoView.setMediaController(MediaController(requireContext()))
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

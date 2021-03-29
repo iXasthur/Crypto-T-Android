@@ -1,16 +1,20 @@
 package com.xcnk.cryptot.api
 
 import android.net.Uri
+import android.provider.MediaStore
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageMetadata
 import com.google.firebase.storage.StorageReference
+import com.xcnk.cryptot.App
 import com.xcnk.cryptot.models.crypto.CloudFileData
 import com.xcnk.cryptot.models.crypto.CryptoAsset
 import com.xcnk.cryptot.utils.Constants
 import com.xcnk.cryptot.utils.GsonConverter
 import java.io.InputStream
-import java.lang.Exception
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class CryptoAssetFirebaseManager {
 
@@ -89,6 +93,7 @@ class CryptoAssetFirebaseManager {
                             completion(null, error)
                         }
                         uri != null -> {
+                            println("Uploaded file $fileRef.path")
                             completion(CloudFileData(fileRef.path, uri.toString()), null)
                         }
                         else -> {
@@ -104,72 +109,40 @@ class CryptoAssetFirebaseManager {
 
     private fun uploadImage(imageUri: Uri, completion: (CloudFileData?, Exception?) -> Unit) {
         try {
-            TODO()
+            val inputStream: InputStream? = App.applicationContext().contentResolver.openInputStream(imageUri)
+            if (inputStream != null) {
+                val storageRef = this.storage.reference
+                val path = "${Constants.Api.Firebase.imagesFolderName}/${UUID.randomUUID()}-android-image"
+                val videoRef = storageRef.child(path)
+                val metadata = StorageMetadata()
+                this.uploadFile(videoRef, inputStream, metadata) { fileData, error ->
+                    completion(fileData, error)
+                }
+            } else {
+                completion(null, Exception("Unable to open stream from Uri"))
+            }
         } catch (error: Throwable) {
             completion(null, Exception("Unable to process image Uri"))
         }
-//        do {
-//            let url = iconNSURL as URL
-//                    let imageData = try Data(contentsOf: url)
-//
-//                if let image = UIImage(data: imageData)?.cropedToSquare()?.resizeImage(128, opaque: true) {
-//                    if let data = image.jpegData(compressionQuality: 1) {
-//                    let storageRef = storage.reference()
-//                    let path = "\(Constants.imagesFolderFirebaseName)/\(UUID().uuidString).jpeg"
-//                    let imageRef = storageRef.child(path)
-//
-//                    let metadata = StorageMetadata()
-//                    metadata.contentType = "image/jpeg"
-//
-//                    uploadFile(fileRef: imageRef, data: data, metadata: metadata) { (fileData, error) in
-//                        completion(fileData, error)
-//                    }
-//
-//                } else {
-//                    completion(nil, NSError.withLocalizedDescription("Unable to get png data from image"))
-//                }
-//                } else {
-//                    completion(nil, NSError.withLocalizedDescription("Unable to optimize image size and form"))
-//                }
-//            } catch {
-//                completion(nil, NSError.withLocalizedDescription("Unable to process image NSURL"))
-//            }
-        }
+    }
 
     private fun uploadVideo(videoUri: Uri, completion: (CloudFileData?, Exception?) -> Unit) {
         try {
-            TODO()
+            val inputStream: InputStream? = App.applicationContext().contentResolver.openInputStream(videoUri)
+            if (inputStream != null) {
+                val storageRef = this.storage.reference
+                val path = "$Constants.videosFolderFirebaseName/${UUID.randomUUID()}-android-video"
+                val videoRef = storageRef.child(path)
+                val metadata = StorageMetadata()
+                this.uploadFile(videoRef, inputStream, metadata) { fileData, error ->
+                    completion(fileData, error)
+                }
+            } else {
+                completion(null, Exception("Unable to open stream from Uri"))
+            }
         } catch (error: Throwable) {
             completion(null, Exception("Unable to process video Uri"))
         }
-//        if let url = videoNSURL.absoluteURL {
-//            let avAsset = AVURLAsset(url: url)
-//            avAsset.exportVideo { (url) in
-//                    if let url = url {
-//                        do {
-//                            let nsdata = try NSData(contentsOf: url, options: .mappedIfSafe)
-//                                let data = Data(referencing: nsdata)
-//
-//                                let storageRef = self.storage.reference()
-//                                let path = "\(Constants.videosFolderFirebaseName)/\(UUID().uuidString).mp4"
-//                                let imageRef = storageRef.child(path)
-//
-//                                let metadata = StorageMetadata()
-//                                metadata.contentType = "video/mp4"
-//
-//                                self.uploadFile(fileRef: imageRef, data: data, metadata: metadata) { (fileData, error) in
-//                                    completion(fileData, error)
-//                                }
-//                            } catch {
-//                                completion(nil, NSError.withLocalizedDescription("Unable to convert video URL"))
-//                            }
-//                        } else {
-//                        completion(nil, NSError.withLocalizedDescription("Unable to convert video"))
-//                    }
-//            }
-//        } else {
-//            completion(nil, NSError.withLocalizedDescription("Unable to get video URL"))
-//        }
     }
 
     private fun uploadAsset(asset: CryptoAsset, completion: (Exception?) -> Unit) {
@@ -205,7 +178,7 @@ class CryptoAssetFirebaseManager {
         // 2 - Image
         // 3 - Asset
 
-        if (asset.videoFileData?.downloadURL != videoUri?.path) {
+        if (asset.videoFileData?.downloadURL != videoUri?.toString()) {
             var updatedAsset = asset
 
             // Delete previous file in background
@@ -244,7 +217,7 @@ class CryptoAssetFirebaseManager {
         }
 
 
-        if (asset.iconFileData?.downloadURL != iconUri?.path) {
+        if (asset.iconFileData?.downloadURL != iconUri?.toString()) {
             var updatedAsset = asset
 
             // Delete previous file in background
@@ -252,11 +225,11 @@ class CryptoAssetFirebaseManager {
             if (iconFileData != null) {
                 updatedAsset.iconFileData = null
                 deleteFile(iconFileData) { error ->
-                        if (error != null) {
-                            println(error)
-                        } else {
-                            println("Deleted icon with path $iconFileData.path")
-                        }
+                    if (error != null) {
+                        println(error)
+                    } else {
+                        println("Deleted icon with path $iconFileData.path")
+                    }
                 }
             }
 
@@ -283,11 +256,11 @@ class CryptoAssetFirebaseManager {
         }
 
         uploadAsset(asset) { error ->
-                if (error != null) {
-                    completion(null, error)
-                } else {
-                    completion(asset, null)
-                }
+            if (error != null) {
+                completion(null, error)
+            } else {
+                completion(asset, null)
+            }
         }
 
     }

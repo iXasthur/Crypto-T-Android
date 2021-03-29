@@ -1,8 +1,7 @@
 package com.xcnk.cryptot.screens.creator
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import com.xcnk.cryptot.R
 import com.xcnk.cryptot.screens.MyActivity
 
@@ -14,5 +13,9 @@ class CreatorActivity : MyActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = getString(R.string.new_crypto)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }
