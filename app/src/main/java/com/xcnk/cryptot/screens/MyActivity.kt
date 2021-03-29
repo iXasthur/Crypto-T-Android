@@ -1,8 +1,8 @@
 package com.xcnk.cryptot.screens
 
-import androidx.appcompat.app.AppCompatActivity
+import com.zeugmasolutions.localehelper.LocaleAwareCompatActivity
 
-open class MyActivity: AppCompatActivity() {
+open class MyActivity: LocaleAwareCompatActivity() {
 
     var blockBackButton: Boolean = false
 

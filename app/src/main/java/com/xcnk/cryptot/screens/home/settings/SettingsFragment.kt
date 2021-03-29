@@ -7,12 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.activity.addCallback
+import com.xcnk.cryptot.App
 import com.xcnk.cryptot.R
 import com.xcnk.cryptot.api.Session
+import com.xcnk.cryptot.screens.MyActivity
+import com.zeugmasolutions.localehelper.Locales
 
 
 class SettingsFragment : Fragment() {
 
+    private lateinit var languageSystemButton: Button
+    private lateinit var languageEnglishButton: Button
+    private lateinit var languageRussianButton: Button
     private lateinit var logOutButton: Button
 
     override fun onCreateView(
@@ -26,6 +32,9 @@ class SettingsFragment : Fragment() {
     }
 
     private fun initViewObjects(view: View) {
+        languageSystemButton = view.findViewById(R.id.fragment_settings_button_language_system)
+        languageEnglishButton = view.findViewById(R.id.fragment_settings_button_language_english)
+        languageRussianButton = view.findViewById(R.id.fragment_settings_button_language_russian)
         logOutButton = view.findViewById(R.id.fragment_settings_button_log_out)
     }
 
@@ -36,6 +45,18 @@ class SettingsFragment : Fragment() {
     private fun setupButtonListeners() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             requireActivity().finishAffinity()
+        }
+
+        languageSystemButton.setOnClickListener {
+            (requireActivity() as MyActivity).updateLocale(App.systemLocale())
+        }
+
+        languageEnglishButton.setOnClickListener {
+            (requireActivity() as MyActivity).updateLocale(Locales.English)
+        }
+
+        languageRussianButton.setOnClickListener {
+            (requireActivity() as MyActivity).updateLocale(Locales.Russian)
         }
 
         logOutButton.setOnClickListener {

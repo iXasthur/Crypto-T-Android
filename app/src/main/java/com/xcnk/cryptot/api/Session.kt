@@ -121,13 +121,14 @@ object Session {
 
     fun destroy() {
         initialized = false
-
+        
         try {
             FirebaseAuth.getInstance().signOut()
         } catch (error: Throwable) {
             println(error)
         }
 
+        AuthDataStorage.delete()
         selectedAsset = null
         authData = null
         dashboard = null
