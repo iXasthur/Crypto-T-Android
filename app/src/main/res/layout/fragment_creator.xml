@@ -41,40 +41,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/latitude" />
-
-            <TextView
-                android:id="@+id/fragment_creator_text_event_latitude"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="1" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/longitude" />
-
-            <TextView
-                android:id="@+id/fragment_creator_text_event_longitude"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="2" />
-
-            <EditText
-                android:id="@+id/fragment_creator_tf_event_note"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/note"
-                android:inputType="textPersonName" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/fragment_creator_icon"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_cryptos"
+                app:civ_border_color="@android:color/darker_gray"
+                app:civ_border_width="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -82,18 +61,18 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/fragment_creator_button_pick_location"
+                    android:id="@+id/fragment_creator_button_select_icon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/pick_event_location" />
+                    android:text="@string/select_icon" />
 
                 <Button
-                    android:id="@+id/fragment_creator_button_delete_event"
+                    android:id="@+id/fragment_creator_button_delete_icon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/delete_event" />
+                    android:text="@string/delete_icon" />
             </LinearLayout>
 
         </LinearLayout>
@@ -149,17 +128,37 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/fragment_creator_icon"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_cryptos"
-                app:civ_border_color="@android:color/darker_gray"
-                app:civ_border_width="1dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/latitude" />
+
+            <TextView
+                android:id="@+id/fragment_creator_text_event_latitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/longitude" />
+
+            <TextView
+                android:id="@+id/fragment_creator_text_event_longitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2" />
+
+            <EditText
+                android:id="@+id/fragment_creator_tf_event_note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/note"
+                android:inputType="textPersonName" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -167,18 +166,18 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/fragment_creator_button_select_icon"
+                    android:id="@+id/fragment_creator_button_pick_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/select_icon" />
+                    android:text="@string/pick_event_location" />
 
                 <Button
-                    android:id="@+id/fragment_creator_button_delete_icon"
+                    android:id="@+id/fragment_creator_button_delete_event"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/delete_icon" />
+                    android:text="@string/delete_event" />
             </LinearLayout>
 
         </LinearLayout>
