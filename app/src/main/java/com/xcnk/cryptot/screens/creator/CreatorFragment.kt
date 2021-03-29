@@ -9,11 +9,15 @@ import android.provider.MediaStore
 import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.google.android.gms.maps.model.LatLng
+import com.osmosys.myosmo.utils.extensions.format
 import com.squareup.picasso.Picasso
 import com.xcnk.cryptot.R
 import com.xcnk.cryptot.api.Session
 import com.xcnk.cryptot.models.crypto.CryptoAsset
 import com.xcnk.cryptot.models.crypto.CryptoEvent
+import com.xcnk.cryptot.screens.locationPicker.LocationPickerActivity
 import com.xcnk.cryptot.utils.startAnimation
 import com.xcnk.cryptot.utils.stopAnimation
 import java.util.*
@@ -37,9 +41,22 @@ class CreatorFragment : Fragment() {
     private lateinit var deleteVideoButton: Button
     private var videoUri: Uri? = null
 
+    private lateinit var latitudeText: TextView
+    private lateinit var longitudeText: TextView
+    private lateinit var eventNoteEditText: EditText
+    private lateinit var eventInfoStack: LinearLayout
+    private lateinit var pickEventLocationButton: Button
+    private lateinit var deleteEventButton: Button
+    private var selectedEventPosition: LatLng? = null
+
     private lateinit var deleteAssetButton: Button
 
     private lateinit var progressBar: ProgressBar
+
+    override fun onResume() {
+        super.onResume()
+        syncEvent()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +86,13 @@ class CreatorFragment : Fragment() {
         selectVideoButton = view.findViewById(R.id.fragment_creator_button_select_video)
         deleteVideoButton = view.findViewById(R.id.fragment_creator_button_delete_video)
 
+        latitudeText = view.findViewById(R.id.fragment_creator_text_event_latitude)
+        longitudeText = view.findViewById(R.id.fragment_creator_text_event_longitude)
+        eventNoteEditText = view.findViewById(R.id.fragment_creator_tf_event_note)
+        eventInfoStack = view.findViewById(R.id.fragment_creator_event_info_stack)
+        pickEventLocationButton = view.findViewById(R.id.fragment_creator_button_pick_location)
+        deleteEventButton = view.findViewById(R.id.fragment_creator_button_delete_event)
+
         deleteAssetButton = view.findViewById(R.id.fragment_creator_button_delete_asset)
 
         progressBar = view.findViewById(R.id.fragment_creator_progress_bar)
@@ -92,12 +116,19 @@ class CreatorFragment : Fragment() {
             if (iURL != null) {
                 iconUri = Uri.parse(iURL)
             }
+
+            val event = assetToEdit!!.suggestedEvent
+            if (event != null) {
+                selectedEventPosition = LatLng(event.latitude, event.longitude)
+                eventNoteEditText.setText(event.note)
+            }
         } else {
             deleteAssetButton.visibility = View.GONE
         }
 
         syncIcon()
         syncVideo()
+        syncEvent()
         progressBar.visibility = View.INVISIBLE
     }
 
@@ -134,6 +165,16 @@ class CreatorFragment : Fragment() {
             syncVideo()
         }
 
+        pickEventLocationButton.setOnClickListener {
+            findNavController().navigate(R.id.action_creatorFragment_to_locationPickerActivity)
+        }
+
+        deleteEventButton.setOnClickListener {
+            selectedEventPosition = null
+            eventNoteEditText.setText("")
+            syncEvent()
+        }
+
         deleteAssetButton.setOnClickListener {
             startAnimation(progressBar)
             Session.deleteRemoteAsset(Session.selectedAsset!!) { e ->
@@ -158,13 +199,16 @@ class CreatorFragment : Fragment() {
             }
             R.id.menu_creator_confirm -> {
                 if (validateInput()) {
-//                    val event: CryptoEvent? = null
-//                    if let eventLatitude = eventLatitude,
-//                    let eventLongitude = eventLongitude {
-//                        event = CryptoEvent(note: eventNote, latitude: eventLatitude, longitude: eventLongitude)
-//                    } else {
-//                        event = nil
-//                    }
+                    val event: CryptoEvent?
+                    if (selectedEventPosition != null) {
+                        event = CryptoEvent(
+                            eventNoteEditText.text.toString(),
+                            selectedEventPosition!!.latitude,
+                            selectedEventPosition!!.longitude
+                        )
+                    } else {
+                        event = null
+                    }
 
                     val asset = CryptoAsset(
                         assetToEdit?.id ?: UUID.randomUUID().toString(),
@@ -173,7 +217,7 @@ class CreatorFragment : Fragment() {
                         descriptionEditText.text.toString(),
                         assetToEdit?.iconFileData,
                         assetToEdit?.videoFileData,
-                        null
+                        event
                     )
 
                     startAnimation(progressBar)
@@ -255,6 +299,23 @@ class CreatorFragment : Fragment() {
             videoView.visibility = View.VISIBLE
         } else {
             videoView.visibility = View.GONE
+        }
+    }
+
+    private fun syncEvent() {
+        val newPos = LocationPickerActivity.lastPickedLocation
+        if (newPos != null) {
+            selectedEventPosition = LocationPickerActivity.lastPickedLocation
+            LocationPickerActivity.lastPickedLocation = null
+        }
+
+        val pos = selectedEventPosition
+        if (pos != null) {
+            latitudeText.text = pos.latitude.format(4)
+            longitudeText.text = pos.longitude.format(4)
+            eventInfoStack.visibility = View.VISIBLE
+        } else {
+            eventInfoStack.visibility = View.GONE
         }
     }
 }

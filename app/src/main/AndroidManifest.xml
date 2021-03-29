@@ -13,8 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CryptoT">
-        <meta-data android:name="com.google.android.maps.v2.API_KEY"
+        <activity android:name=".screens.locationPicker.LocationPickerActivity"></activity>
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
             android:value="${MAPS_API_KEY}" />
+
         <activity
             android:name=".screens.cryptoDetails.CryptoDetailsActivity"
             android:screenOrientation="portrait" />

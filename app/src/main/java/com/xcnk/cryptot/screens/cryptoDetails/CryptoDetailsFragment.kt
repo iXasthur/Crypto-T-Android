@@ -5,6 +5,7 @@ import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.osmosys.myosmo.utils.extensions.format
 import com.squareup.picasso.Picasso
 import com.xcnk.cryptot.R
 import com.xcnk.cryptot.api.Session
@@ -110,8 +111,8 @@ class CryptoDetailsFragment : Fragment() {
             }
 
             if (asset.suggestedEvent != null) {
-                eventLatitudeTextView.text = asset.suggestedEvent!!.latitude.toString()
-                eventLongitudeTextView.text = asset.suggestedEvent!!.longitude.toString()
+                eventLatitudeTextView.text = asset.suggestedEvent!!.latitude.format(4)
+                eventLongitudeTextView.text = asset.suggestedEvent!!.longitude.format(4)
                 eventNoteTextView.text = asset.suggestedEvent!!.note
                 eventStackView.visibility = View.VISIBLE
             } else {

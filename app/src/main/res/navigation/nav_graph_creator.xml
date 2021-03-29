@@ -9,5 +9,14 @@
         android:id="@+id/creatorFragment"
         android:name="com.xcnk.cryptot.screens.creator.CreatorFragment"
         android:label="fragment_creator"
-        tools:layout="@layout/fragment_creator" />
+        tools:layout="@layout/fragment_creator" >
+        <action
+            android:id="@+id/action_creatorFragment_to_locationPickerActivity"
+            app:destination="@id/locationPickerActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/locationPickerActivity"
+        android:name="com.xcnk.cryptot.screens.locationPicker.LocationPickerActivity"
+        android:label="activity_location_picker"
+        tools:layout="@layout/activity_location_picker" />
 </navigation>

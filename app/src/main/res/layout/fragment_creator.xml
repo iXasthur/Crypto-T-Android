@@ -15,6 +15,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
+            android:id="@+id/fragment_creator_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/name"
+            android:inputType="textPersonName" />
+
+        <EditText
             android:id="@+id/fragment_creator_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,14 +36,6 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/description"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/fragment_creator_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/name"
             android:inputType="textPersonName" />
 
         <LinearLayout
@@ -128,37 +128,44 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView3"
+            <LinearLayout
+                android:id="@+id/fragment_creator_event_info_stack"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/latitude" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/fragment_creator_text_event_latitude"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="1" />
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/latitude" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/longitude" />
+                <TextView
+                    android:id="@+id/fragment_creator_text_event_latitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="LAT" />
 
-            <TextView
-                android:id="@+id/fragment_creator_text_event_longitude"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="2" />
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/longitude" />
 
-            <EditText
-                android:id="@+id/fragment_creator_tf_event_note"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/note"
-                android:inputType="textPersonName" />
+                <TextView
+                    android:id="@+id/fragment_creator_text_event_longitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="LONG" />
+
+                <EditText
+                    android:id="@+id/fragment_creator_tf_event_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/note"
+                    android:inputType="textPersonName" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -170,7 +177,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/pick_event_location" />
+                    android:text="@string/pick_location" />
 
                 <Button
                     android:id="@+id/fragment_creator_button_delete_event"
