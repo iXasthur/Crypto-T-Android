@@ -97,7 +97,7 @@
 
                 <VideoView
                     android:id="@+id/fragment_creator_video"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="@dimen/video_height"
                     android:layout_gravity="center"
                     android:layout_weight="1"
