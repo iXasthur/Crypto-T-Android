@@ -37,6 +37,8 @@ class CreatorFragment : Fragment() {
     private lateinit var deleteVideoButton: Button
     private var videoUri: Uri? = null
 
+    private lateinit var deleteAssetButton: Button
+
     private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,6 +69,8 @@ class CreatorFragment : Fragment() {
         selectVideoButton = view.findViewById(R.id.fragment_creator_button_select_video)
         deleteVideoButton = view.findViewById(R.id.fragment_creator_button_delete_video)
 
+        deleteAssetButton = view.findViewById(R.id.fragment_creator_button_delete_asset)
+
         progressBar = view.findViewById(R.id.fragment_creator_progress_bar)
     }
 
@@ -88,6 +92,8 @@ class CreatorFragment : Fragment() {
             if (iURL != null) {
                 iconUri = Uri.parse(iURL)
             }
+        } else {
+            deleteAssetButton.visibility = View.GONE
         }
 
         syncIcon()
@@ -126,6 +132,16 @@ class CreatorFragment : Fragment() {
         deleteVideoButton.setOnClickListener {
             videoUri = null
             syncVideo()
+        }
+
+        deleteAssetButton.setOnClickListener {
+            startAnimation(progressBar)
+            Session.deleteRemoteAsset(Session.selectedAsset!!) { e ->
+                stopAnimation(progressBar)
+                if (e == null) {
+                    requireActivity().onBackPressed()
+                }
+            }
         }
     }
 

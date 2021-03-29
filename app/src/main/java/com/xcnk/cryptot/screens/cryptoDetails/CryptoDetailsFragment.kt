@@ -27,6 +27,10 @@ class CryptoDetailsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         syncWithSelected()
+
+        if (Session.selectedAsset == null) {
+            requireActivity().onBackPressed()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
