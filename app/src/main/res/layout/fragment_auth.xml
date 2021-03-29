@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingStart="@dimen/safe_area_x"
+    android:paddingEnd="@dimen/safe_area_x"
     tools:context=".screens.auth.AuthFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -22,12 +24,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/welcome_em"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="@dimen/header_font_size"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/fragment_auth_tf_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/element_spacing"
             android:ems="10"
             android:hint="@string/email"
             android:inputType="textEmailAddress" />
@@ -36,6 +41,7 @@
             android:id="@+id/fragment_auth_tf_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/element_spacing"
             android:ems="10"
             android:hint="@string/password"
             android:inputType="textPassword" />
@@ -43,12 +49,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/element_spacing"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/fragment_auth_button_sign_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/button_half_spacing"
                 android:layout_weight="1"
                 android:text="@string/sign_up" />
 
@@ -56,6 +64,7 @@
                 android:id="@+id/fragment_auth_button_sign_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/button_half_spacing"
                 android:layout_weight="1"
                 android:text="@string/sign_in" />
         </LinearLayout>
@@ -64,8 +73,12 @@
             android:id="@+id/fragment_auth_text_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="@string/something_went_wrong"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="@dimen/sub_header_font_size"
+            android:textStyle="normal" />
 
     </LinearLayout>
 
