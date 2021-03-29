@@ -251,6 +251,10 @@ class CreatorFragment : Fragment() {
             descriptionEditText.error = requireContext().getString(R.string.must_be_not_empty)
             ret = false
         }
+        if (selectedEventPosition != null && eventNoteEditText.text.toString().isEmpty()) {
+            eventNoteEditText.error = requireContext().getString(R.string.must_be_not_empty)
+            ret = false
+        }
         return ret
     }
 
