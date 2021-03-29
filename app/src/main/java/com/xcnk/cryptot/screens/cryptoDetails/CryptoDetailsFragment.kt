@@ -91,11 +91,12 @@ class CryptoDetailsFragment : Fragment() {
             if (asset.iconFileData != null) {
                 Picasso.get()
                     .load(asset.iconFileData!!.downloadURL)
-                    .placeholder(R.drawable.ic_cryptos)
-                    .error(R.drawable.ic_cryptos)
+                    .placeholder(R.drawable.ic_baseline_downloading_24)
+                    .error(R.drawable.ic_baseline_grade_24)
                     .into(iconView)
+                iconView.visibility = View.VISIBLE
             } else {
-                iconView.setImageResource(R.drawable.ic_cryptos)
+                iconView.visibility = View.GONE
             }
 
             nameTextView.text = asset.name

@@ -286,8 +286,8 @@ class CreatorFragment : Fragment() {
         if (iconUri != null) {
             Picasso.get()
                     .load(iconUri)
-                    .placeholder(R.drawable.ic_cryptos)
-                    .error(R.drawable.ic_cryptos)
+                    .placeholder(R.drawable.ic_baseline_downloading_24)
+                    .error(R.drawable.ic_baseline_grade_24)
                     .into(iconImageView)
             iconImageView.visibility = View.VISIBLE
         } else {

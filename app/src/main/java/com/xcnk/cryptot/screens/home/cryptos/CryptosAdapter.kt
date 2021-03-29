@@ -54,8 +54,8 @@ class CryptosAdapter(
         if (p.iconFileData != null) {
             Picasso.get()
                 .load(p.iconFileData!!.downloadURL)
-                .placeholder(R.drawable.ic_cryptos)
-                .error(R.drawable.ic_cryptos)
+                .placeholder(R.drawable.ic_baseline_downloading_24)
+                .error(R.drawable.ic_baseline_grade_24)
                 .into(icon)
         }
 
