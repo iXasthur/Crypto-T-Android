@@ -117,7 +117,7 @@ class AuthFragment : Fragment() {
         val restoredAuthData = Session.restore { e ->
             this.stopAnimation(progressBar)
             if (e != null) {
-                errorText.visibility = View.VISIBLE
+                errorText.visibility = View.GONE
             } else {
                 errorText.visibility = View.GONE
                 this.view?.findNavController()?.navigate(R.id.action_authFragment_to_homeActivity)
