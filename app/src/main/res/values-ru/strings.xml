@@ -40,4 +40,7 @@
     <string name="delete_video">Удалить видео</string>
     <string name="delete_icon">Удалить иконку</string>
     <string name="delete_asset">Удалить криптовалюту</string>
+    <string name="theme">Тема</string>
+    <string name="light">Светлая</string>
+    <string name="dark">Темная</string>
 </resources>

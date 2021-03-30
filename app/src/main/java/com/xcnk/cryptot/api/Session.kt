@@ -18,6 +18,8 @@ object Session {
 
     var selectedAsset: CryptoAsset? = null
 
+    fun isInitialized(): Boolean = initialized
+
     fun getLocalAssets(): ArrayList<CryptoAsset>? {
         return dashboard?.assets
     }

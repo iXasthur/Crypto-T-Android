@@ -40,4 +40,7 @@
     <string name="delete_video">Delete Video</string>
     <string name="delete_icon">Delete Icon</string>
     <string name="delete_asset">Delete Asset</string>
+    <string name="theme">Theme</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
 </resources>

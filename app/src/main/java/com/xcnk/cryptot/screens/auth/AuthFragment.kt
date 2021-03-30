@@ -37,7 +37,9 @@ class AuthFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        restoreSession()
+        if (!Session.isInitialized()) {
+            restoreSession()
+        }
     }
 
     override fun onCreateView(
