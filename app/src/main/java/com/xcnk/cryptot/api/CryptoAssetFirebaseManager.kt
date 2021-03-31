@@ -131,7 +131,7 @@ class CryptoAssetFirebaseManager {
             val inputStream: InputStream? = App.applicationContext().contentResolver.openInputStream(videoUri)
             if (inputStream != null) {
                 val storageRef = this.storage.reference
-                val path = "$Constants.videosFolderFirebaseName/${UUID.randomUUID()}-android-video"
+                val path = "${Constants.Api.Firebase.videosFolderName}/${UUID.randomUUID()}-android-video"
                 val videoRef = storageRef.child(path)
                 val metadata = StorageMetadata()
                 this.uploadFile(videoRef, inputStream, metadata) { fileData, error ->
